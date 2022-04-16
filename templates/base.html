@@ -12,17 +12,40 @@
     <nav class="navbar navbar-expand-lg navbar-light text-black" style="background-color: #00B8C3;">
         <div class="container-fluid">
             <div class="navbar-logo">
-                <a href="../templates/head.html" class="navbar-brand" style="font-size: 1.5rem;">
+                <a href="../templates/base.html" class="navbar-brand" style="font-size: 1.5rem;">
                     <img src="../static/img/logo.png">
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav" style="flex-grow: 0;">
-                Потом добавим
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">Полка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/map" class="nav-link active">Карта</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">Магазин</a>
+                    </li>
+                    {% if current_user and current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Профиль</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Войти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registration">Регистрация</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>
 </header>
-<main>
+<main role="main" class="container">
+    {% block content %}{% endblock %}
 </main>
 <footer>
 </footer>

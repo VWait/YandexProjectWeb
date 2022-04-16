@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for hall in halls %}
+    <div style="left: {{ hall.left }}; top: {{ hall.top }}; width: {{ hall.width }}; height: {{ hall.height }};" id="{{ chall.type }}" >
+        {% for item in hall.items %}
+        <div style="left: {{ item.left }}; top: {{ item.top }}; width: {{ item.width }}; height: {{ item.height }}; position: {{ item.position }};" id="{{ item.type }}">
+            {% if item.type == 'table' %}
+            тут что-то будет
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+{% endblock %}
