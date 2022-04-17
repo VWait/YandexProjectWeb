@@ -2,9 +2,10 @@
 
 {% block content %}
     {% for hall in halls %}
-    <div style="left: {{ hall.left }}; top: {{ hall.top }}; width: {{ hall.width }}; height: {{ hall.height }};" id="{{ chall.type }}" >
+    <div style="left: {{ hall.left }}; top: {{ hall.top }}; width: {{ hall.width }}; height: {{ hall.height }};" id="{{ hall.name }}" >
         {% for item in hall.items %}
-        <div style="left: {{ item.left }}; top: {{ item.top }}; width: {{ item.width }}; height: {{ item.height }}; position: inherit;" id="{{ item.type }}">
+        <div style="background-color: #dddddd;left: {{ item.left }}; top: {{ item.top }}; width: {{ item.width }}; height: {{ item.height }}; position: inherit;" id="{{ item.type }}">
+            <p><img src="/static/img/{{ item.type }}"></p>
             {% if item.type == 'table' %}
             тут что-то будет
             {% endif %}
