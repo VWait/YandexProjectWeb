@@ -1,6 +1,7 @@
 from data import db_session
 from data.halls import Hall
 from data.items import Item
+from data.shelf import Shelf
 
 
 def add():
@@ -30,5 +31,22 @@ def add():
         item.width = i[4]
         item.height = i[5]
         session.add(item)
+
+    session.commit()
+
+
+def add_1():
+    db_session.global_init('db/base.db')
+    session = db_session.create_session()
+
+    # name, photo, text
+    shelfs = [['11', 'logo.png', '123'], ['22', 'logo.png', '1234'], ['33', 'logo.png', '12345']]
+
+    for i in shelfs:
+        shelf = Shelf()
+        shelf.name = i[0]
+        shelf.photo = i[1]
+        shelf.text = i[2]
+        session.add(shelf)
 
     session.commit()

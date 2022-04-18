@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <meta charset="UTF-8">
+    <h2 align="center">Полка</h2>
+        <p>
+            {% for i in shelf %}
+                <img src="/static/img/{{ i.photo }}">
+            {% endfor %}
+        </p>
+{% endblock %}

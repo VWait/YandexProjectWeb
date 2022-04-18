@@ -1,8 +1,9 @@
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user, login_required, logout_user
 from data import db_session
-from data import hall_item
+from data import add
 from data.users import User
+from data.shelf import Shelf
 from data.tables import Table
 from data.halls import Hall
 from data.items import Item
@@ -46,6 +47,12 @@ def index():
     hall2 = db_sess.query(Hall).filter(Hall.id == 2).first()
     item1 = db_sess.query(Item).filter(Item.id == 1).first()
     item2 = db_sess.query(Item).filter(Item.id == 2).first()
+    sh1 = db_sess.query(Shelf).filter(Shelf.id == 1).first()
+    sh2 = db_sess.query(Shelf).filter(Shelf.id == 2).first()
+    sh3 = db_sess.query(Shelf).filter(Shelf.id == 3).first()
+    db_sess.delete(sh3)
+    db_sess.delete(sh2)
+    db_sess.delete(sh1)
     db_sess.delete(hall2)
     db_sess.delete(hall1)
     db_sess.delete(item2)
@@ -53,7 +60,9 @@ def index():
     db_sess.commit()
     ###
     if db_sess.query(Hall).all() == [] or db_sess.query(Item).all() == []:
-        hall_item.add()
+        add.add()
+    if db_sess.query(Shelf).all() == []:
+        add.add_1()
     users = db_sess.query(User).all()
     names = {name.id: (name.nickname) for name in users}
     return render_template("index.html", names=names, title='Work log')
@@ -103,8 +112,20 @@ def map():
     halls = db_sess.query(Hall).all()
     items = db_sess.query(Item).all()
     hall = {hall.id: ([i. id for i in db_sess.query(Item).filter(Item.halls_id == hall.id).all()]) for hall in halls}
-    print(halls)
     return render_template("map.html", halls=halls, hall=hall, items=items, title='Map')
+
+
+@app.route('/shelf')
+@login_required
+def shelf():
+    db_sess = db_session.create_session()
+    shelfs = db_sess.query(Shelf).all()
+    c = len(shelfs) // 3
+    first = shelfs[:c + 1]
+    second = shelfs[c + 1: c + c + 1]
+    third = shelfs[c + c + 1:]
+    return render_template("shelf.html", shelf=shelfs, title='Shelf')
+
 
 
 def main():
