@@ -1,12 +1,12 @@
 from flask import Flask, render_template, redirect
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
 from data import add
 from data.users import User
-from data.shelf import Shelf
+from data.games import Games
 from data.tables import Table
-from data.halls import Hall
-from data.items import Item
+from data.achievements import Achievement
+from data.user_achiev import User_Achievement
 from flask_login import UserMixin
 from forms.booking import BookingForm
 from forms.login_form import LoginForm
@@ -42,26 +42,7 @@ def login():
 @app.route("/")
 def index():
     db_sess = db_session.create_session()
-    ###
-    hall1 = db_sess.query(Hall).filter(Hall.id == 1).first()
-    hall2 = db_sess.query(Hall).filter(Hall.id == 2).first()
-    item1 = db_sess.query(Item).filter(Item.id == 1).first()
-    item2 = db_sess.query(Item).filter(Item.id == 2).first()
-    sh1 = db_sess.query(Shelf).filter(Shelf.id == 1).first()
-    sh2 = db_sess.query(Shelf).filter(Shelf.id == 2).first()
-    sh3 = db_sess.query(Shelf).filter(Shelf.id == 3).first()
-    db_sess.delete(sh3)
-    db_sess.delete(sh2)
-    db_sess.delete(sh1)
-    db_sess.delete(hall2)
-    db_sess.delete(hall1)
-    db_sess.delete(item2)
-    db_sess.delete(item1)
-    db_sess.commit()
-    ###
-    if db_sess.query(Hall).all() == [] or db_sess.query(Item).all() == []:
-        add.add()
-    if db_sess.query(Shelf).all() == []:
+    if db_sess.query(Achievement).all() == []:
         add.add_1()
     users = db_sess.query(User).all()
     names = {name.id: (name.nickname) for name in users}
@@ -106,25 +87,27 @@ def booking():
 
 
 @app.route('/map')
-@login_required
 def map():
     db_sess = db_session.create_session()
-    halls = db_sess.query(Hall).all()
-    items = db_sess.query(Item).all()
-    hall = {hall.id: ([i. id for i in db_sess.query(Item).filter(Item.halls_id == hall.id).all()]) for hall in halls}
-    return render_template("map.html", halls=halls, hall=hall, items=items, title='Map')
+    return render_template("map.html", title='Map')
 
 
 @app.route('/shelf')
-@login_required
 def shelf():
     db_sess = db_session.create_session()
-    shelfs = db_sess.query(Shelf).all()
-    c = len(shelfs) // 3
-    first = shelfs[:c + 1]
-    second = shelfs[c + 1: c + c + 1]
-    third = shelfs[c + c + 1:]
-    return render_template("shelf.html", shelf=shelfs, title='Shelf')
+    games = db_sess.query(Games).all()
+    print(games[0].img)
+    return render_template("shelf.html", games=games, title='Shelf')
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    db_sess = db_session.create_session()
+    user = current_user
+    #games = db_sess.query().all()
+    return render_template("profile.html", user=current_user, title='Profile')
+
 
 
 

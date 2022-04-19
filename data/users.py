@@ -17,7 +17,10 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now())
+    img = sqlalchemy.Column(sqlalchemy.String)
+
     tables = orm.relation("Table", back_populates='user')
+    u_a2 = orm.relation("User_Achievement", back_populates='user')
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

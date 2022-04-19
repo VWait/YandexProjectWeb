@@ -6,10 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 import sys
-
 sys.path.insert(0, "/C:/Users/alina/PycharmProjects/YandexProjectWeb/")
-
-
 from data.db_session import SqlAlchemyBase
 import data.__all_models
 
@@ -73,7 +70,8 @@ def run_migrations_online():
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=SqlAlchemyBase.metadata
         )
 
         with context.begin_transaction():

@@ -1,36 +1,27 @@
 from data import db_session
-from data.halls import Hall
-from data.items import Item
-from data.shelf import Shelf
+from data.games import Games
+from data.achievements import Achievement
 
 
 def add():
     db_session.global_init('db/base.db')
     session = db_session.create_session()
 
-    # name, top, left, width, height
-    halls = [['name', 1, 2, 3, 4], ['name1', 11, 22, 33, 44]]
-    # type, halls_id, top, left, width, height
-    items = [['logo.png', 1, 50, 100, 200, 200], ['logo.png1', 2, 11, 22, 33, 44]]
+    games = [
+        ['Неудержимые единорожки', "В этой карточной игре есть всё, что ты любишь: единороги и разрушения. Собирай свою армию единорогов с волшебными способностями, переманивай или заколдовывай единорогов соперников и захватывай мир! Бонусы и штрафы помогут сделать это коварно, весело и непредсказуемо!", '1.jpg'],
+        ['Нуар', """Захватывающая компактная детективная игра с простыми правилами и разными режимами игры для поклонников запутанных историй и увлекательных логических головоломок.
+          Чтобы принять участие в этой азартной криминальной гонке, игрокам потребуются навыки дедукции, логического мышления, отличная интуиция, крепкая память и способность читать оппонентов как открытую книгу.
+          Почувствовать себя сыщиком, идущим по следу опасного шпиона или же, напротив, тем самым шпионом, скрывающимся от хитроумного соперника, могут как взрослые, так и дети от 8 лет – правила игры изучаются за считанные минуты, а игровой процесс затягивает не на шутку. Благодаря разным режимам игры Нуаром можно наслаждаться как вдвоем, так и большой компанией.""", '2.jpg'],
+        ['Кодовые Имена', """Встречайте игру для вечеринки №1 в мире – словесную шпионскую игру Кодовые Имена. Это отличная разминка для мозгов. Одновременно изящная и лёгкая, головоломная и в то же время простая – она подарит множество захватывающих партий с друзьями, родными и просто случайными знакомыми!
+          Если вы всегда хотели почувствовать себя королём вечеринки и главой шпионов и давать двусмысленные намеки главам спецслужб, ваше время пришло. Настольная игра Кодовые Имена для любой компании от двух человек спляшет буги-вуги на ваших нервах!""", '3.jpg']
+    ]
 
-    for i in halls:
-        hall = Hall()
-        hall.name = i[0]
-        hall.top = i[1]
-        hall.left = i[2]
-        hall.width = i[3]
-        hall.height = i[4]
-        session.add(hall)
-
-    for i in items:
-        item = Item()
-        item.type = i[0]
-        item.halls_id = i[1]
-        item.top = i[2]
-        item.left = i[3]
-        item.width = i[4]
-        item.height = i[5]
-        session.add(item)
+    for i in games:
+        game = Games()
+        game.name = i[0]
+        game.info = i[1]
+        game.img = i[2]
+        session.add(game)
 
     session.commit()
 
@@ -39,14 +30,11 @@ def add_1():
     db_session.global_init('db/base.db')
     session = db_session.create_session()
 
-    # name, photo, text
-    shelfs = [['11', 'logo.png', '123'], ['22', 'logo.png', '1234'], ['33', 'logo.png', '12345']]
+    # text, img
+    i = ['', '']
 
-    for i in shelfs:
-        shelf = Shelf()
-        shelf.name = i[0]
-        shelf.photo = i[1]
-        shelf.text = i[2]
-        session.add(shelf)
-
+    a = Achievement()
+    a.text = i[0]
+    a.img = i[1]
+    session.add(a)
     session.commit()
