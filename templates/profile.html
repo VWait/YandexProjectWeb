@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}  
+    <div class="container mt-5 p-2" style="background-color: #00B8C3; color: black;">
+        <div class="row">
+            <div class="col-3">
+                <img src="{% if user.img %} {{ user.img }} {% else %} ../static/img/empty_user.png {% endif %}" class="img-fluid img-thumbnail border-dark border-4" width="190">
+            </div>
+            <div class="col-9">
+                <h2 class="center">{{ user.name }}</h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-3" style="height: 150px;">
+                <button class="btn btn-dark">Редактировать профиль</button>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Достижения</h2>
+            {% if user_achievements %}
+            <div class="row">
+                {% for achievement in achievements %}
+                <div class="col">
+                    <figure class="figure">
+                        <img src="{{ achievement.img }}" class="figure-img img-fluid rounded" alt="..." width="190">
+                        <figcaption class="figure-caption text-wrap" style="width: 190px;">{{ achievement.text }}</figcaption>
+                    </figure>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>Пока у вас нет достижений</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

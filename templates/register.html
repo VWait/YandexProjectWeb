@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Register Form</h1>
+<div class="container-fluid w-50 p-3 mt-4" style="background-color: #00B8C3; color: #272524;">
+<h1>Регистрация</h1>
 
 <form action="" method="post">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     <p>
-        {{ form.nickname.label }}<br>
+        Ник<br>
         {{ form.nickname(class="form-control") }}<br>
         {% for error in form.nickname.errors %}
     <p class="alert alert-danger" role="alert">
@@ -16,7 +17,7 @@
     {% endfor %}
     </p>
     <p>
-        {{ form.email.label }}<br>
+        Почта<br>
         {{ form.email(class="form-control", type="email") }}<br>
         {% for error in form.email.errors %}
     <p class="alert alert-danger" role="alert">
@@ -25,7 +26,7 @@
     {% endfor %}
     </p>
     <p>
-        {{ form.password.label }}<br>
+        Пароль<br>
         {{ form.password(class="form-control", type="password") }}<br>
         {% for error in form.password.errors %}
     <p class="alert alert-danger" role="alert">
@@ -34,7 +35,7 @@
     {% endfor %}
     </p>
     <p>
-        {{ form.password_again.label }}<br>
+        Пароль ещё раз<br>
         {{ form.password_again(class="form-control", type="password") }}<br>
         {% for error in form.password_again.errors %}
     <p class="alert alert-danger" role="alert">
@@ -42,7 +43,8 @@
     </p>
     {% endfor %}
     </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
+    <p>{{ form.submit(type="submit", class="btn btn-primary btn-dark") }}</p>
+    {{ message }}
 </form>
+</div>
 {% endblock %}

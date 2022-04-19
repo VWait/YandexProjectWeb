@@ -1,11 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <meta charset="UTF-8">
-    <h2 align="center">Полка</h2>
-        <p>
-            {% for i in shelf %}
-                <img src="/static/img/{{ i.photo }}">
-            {% endfor %}
-        </p>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Полка</h1>
+            <p class="lead text-muted">Здесь вы можете посмотреть все игры в наличии. В каждую из них можно поиграть в нашем клубе</p>
+          </div>
+        </div>
+    </section>
+    <div class="album py-5" style="background-color: #00B8C3;">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for game in games%}
+                <div class="col">
+                    <div class="card shadow-sm" style="background-color: #272524;">
+                        <h2 align="center">{{game.name}}</h2>
+                        <img class="bd-placeholder-img card-img-top" src="{{game.img}}" width="100%" height="225" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"/></img>
+                        <div class="card-body">
+                            <p class="card-text">{{game.info}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Узнать больше</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Объявить мероприятие</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
