@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,12 +7,12 @@
     <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
     <title>Шаблон для шапки</title>
 </head>
-<body style="background-color: #dddddd">
+<body style="background-color: #272524; color: white;">
 <header>
     <nav class="navbar navbar-expand-lg navbar-light text-black" style="background-color: #00B8C3;">
         <div class="container-fluid">
             <div class="navbar-logo">
-                <a href="../templates/base.html" class="navbar-brand" style="font-size: 1.5rem;">
+                <a href="/" class="navbar-brand" style="font-size: 1.5rem;">
                     <img src="../static/img/logo.png">
                 </a>
             </div>
@@ -29,7 +29,7 @@
                     </li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{{ current_user.nickname }}</a>
+                        <a class="nav-link" href="/profile">{{ current_user.nickname }}</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -44,7 +44,7 @@
         </div>
     </nav>
 </header>
-<main role="main" class="container">
+<main role="main" class="container-fluid">
     {% block content %}{% endblock %}
 </main>
 <footer>
