@@ -14,13 +14,13 @@ class User(SqlAlchemyBase, UserMixin):
     nickname = sqlalchemy.Column(sqlalchemy.String, nullable=True, unique=True)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
-    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True, unique=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now())
     img = sqlalchemy.Column(sqlalchemy.String)
 
-    tables = orm.relation("Table", back_populates='user')
-    u_a2 = orm.relation("User_Achievement", back_populates='user')
+    table = orm.relation("Table", back_populates='user')
+    user_achievement = orm.relation("User_Achievement", back_populates='user')
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

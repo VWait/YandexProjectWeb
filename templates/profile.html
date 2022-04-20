@@ -17,12 +17,12 @@
         </div>
         <div class="row">
             <h2>Достижения</h2>
-            {% if user_achievements %}
+            {% if achievements %}
             <div class="row">
                 {% for achievement in achievements %}
                 <div class="col">
                     <figure class="figure">
-                        <img src="{{ achievement.img }}" class="figure-img img-fluid rounded" alt="..." width="190">
+                        <img src="/static/img/{{ achievement.img }}" class="figure-img img-fluid rounded" alt="..." width="190">
                         <figcaption class="figure-caption text-wrap" style="width: 190px;">{{ achievement.text }}</figcaption>
                     </figure>
                 </div>

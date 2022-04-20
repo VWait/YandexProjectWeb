@@ -1,6 +1,7 @@
 from data import db_session
 from data.games import Games
 from data.achievements import Achievement
+from data.user_achiev import User_Achievement
 
 
 def add():
@@ -31,10 +32,23 @@ def add_1():
     session = db_session.create_session()
 
     # text, img
-    i = ['', '']
+    i = ['name', 'logo.png']
 
-    a = Achievement()
-    a.text = i[0]
-    a.img = i[1]
-    session.add(a)
+    achievement = Achievement()
+    achievement.text = i[0]
+    achievement.img = i[1]
+    session.add(achievement)
+    session.commit()
+
+def add_2():
+    db_session.global_init('db/base.db')
+    session = db_session.create_session()
+
+    # text, img
+    i = [1, 1]
+
+    achievement = User_Achievement()
+    achievement.user_id = i[0]
+    achievement.achiev_id = i[1]
+    session.add(achievement)
     session.commit()

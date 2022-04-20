@@ -9,7 +9,7 @@ class User_Achievement(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
     user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
-    achiv_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("achievements.id"))
+    achiev_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("achievements.id"))
 
     user = orm.relation('User')
-    achiev = orm.relation('Achievement')
+    achievement = orm.relation('Achievement')

@@ -35,13 +35,16 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
-        return render_template('login.html', message="Wrong login or password", form=form)
-    return render_template('login.html', title='Authorization', form=form)
+        return render_template('login.html', message="Неправильный логин или пароль", form=form)
+    return render_template('login.html', title='Авторизация', form=form)
 
 
 @app.route("/")
 def index():
     db_sess = db_session.create_session()
+    #db_sess.delete(db_sess.query(Achievement).filter(Achievement.id == 1).first())
+    #db_sess.commit()
+    #add.add_2()
     if db_sess.query(Achievement).all() == []:
         add.add_1()
     users = db_sess.query(User).all()
@@ -62,11 +65,11 @@ def reqister():
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
             return render_template('register.html', title='Register', form=form,
-                                   message="Passwords don't match")
+                                   message="Пароли не совпадают")
         db_sess = db_session.create_session()
-        if db_sess.query(User).filter(User.email == form.email.data).first():
+        if db_sess.query(User).filter((User.email == form.email.data) | (User.nickname == form.nickname.data)).first():
             return render_template('register.html', title='Register', form=form,
-                                   message="This user already exists")
+                                   message="Этот пользователь уже зарегистрирован")
         user = User(
             nickname=form.nickname.data,
             email=form.email.data,
@@ -104,10 +107,11 @@ def shelf():
 @login_required
 def profile():
     db_sess = db_session.create_session()
-    user = current_user
-    #games = db_sess.query().all()
-    return render_template("profile.html", user=current_user, title='Profile')
-
+    user_achievement = db_sess.query(User_Achievement).filter(User_Achievement.user_id == current_user.id).all()
+    achievement_id = [i.achiev_id for i in user_achievement]
+    achievement = [i.id for i in db_sess.query(Achievement).filter().all()]
+    achievements = [db_sess.query(Achievement).filter(Achievement.id == i).first() for i in achievement if i in achievement_id]
+    return render_template("profile.html", user=current_user, achievements=achievements, title='Profile')
 
 
 

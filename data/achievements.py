@@ -11,4 +11,4 @@ class Achievement(SqlAlchemyBase):
     text = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     img = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
-    u_a1 = orm.relation("User_Achievement", backref='achievement')
+    user_achievement = orm.relation("User_Achievement", backref='achievements')

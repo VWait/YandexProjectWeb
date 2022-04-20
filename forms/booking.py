@@ -8,4 +8,4 @@ class BookingForm(FlaskForm):
     surname = StringField('Surname', validators=[DataRequired()])
     number = IntegerField('Phone number', validators=[DataRequired()])
     datetime = DateTimeField('Game time', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Забронировать')
