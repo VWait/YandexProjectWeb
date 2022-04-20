@@ -16,5 +16,5 @@ class Table(SqlAlchemyBase):
 
     datetime = sqlalchemy.Column(sqlalchemy.DateTime,
                                  default=datetime.datetime.now())
-    user = orm.relation('User')
+    users = orm.relation('User')
 

@@ -13,3 +13,7 @@ class User_Achievement(SqlAlchemyBase):
 
     user = orm.relation('User')
     achievement = orm.relation('Achievement')
+
+    def __repr__(self):
+        return f'<Achievement> {self.achievement}'
+
