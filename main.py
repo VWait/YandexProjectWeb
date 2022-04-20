@@ -42,8 +42,7 @@ def login():
 @app.route("/")
 def index():
     db_sess = db_session.create_session()
-    #db_sess.delete(db_sess.query(Achievement).filter(Achievement.id == 1).first())
-    #db_sess.commit()
+    print(db_sess.query(Achievement).all())
     #add.add_2()
     if db_sess.query(Achievement).all() == []:
         add.add_1()

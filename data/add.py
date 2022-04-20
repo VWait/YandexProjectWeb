@@ -32,7 +32,7 @@ def add_1():
     session = db_session.create_session()
 
     # text, img
-    i = ['name', 'logo.png']
+    i = ['Турнир 2021г.', 'achievement.png']
 
     achievement = Achievement()
     achievement.text = i[0]
@@ -45,7 +45,7 @@ def add_2():
     session = db_session.create_session()
 
     # text, img
-    i = [1, 1]
+    i = ['Турнир 2021г.', 'achievement.png']
 
     achievement = User_Achievement()
     achievement.user_id = i[0]
