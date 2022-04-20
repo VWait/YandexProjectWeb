@@ -2,4 +2,65 @@
 
 {% block content %}
 
+    <div class="row mt-3">
+        <div class="col-6" style="text-align: center;">
+            <h1>Мягкая зона</h1>
+        </div>
+        <div class="col-6" style="text-align: center;">
+            <h1>Главный зал</h1>
+        </div>
+
+        <div class="col-6">
+            <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #9A1563; color: black;">
+              <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
+                  {% for i in items[0] %}
+                    <div class="col">
+                        {% if i.closed == None %}
+                            <button class="btn btn-outline-dark w-100 h-200">{{types[i.item_id]}}</button>
+                        {% else %}
+                            <button class="btn btn-outline-dark w-100 h-100">Забронировано</button>
+                        {% endif %}
+                    </div>
+                  {% endfor %}
+              </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #FFF100; color: black;">
+              <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
+                {% for i in items[1] %}
+                    <div class="col">
+                        {% if i.closed == None %}
+                            <button class="btn btn-outline-dark w-100 h-200">{{types[i.item_id]}}</button>
+                        {% else %}
+                            <button class="btn btn-outline-dark w-100 h-100">Забронировано</button>
+                        {% endif %}
+                    </div>
+                  {% endfor %}
+              </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <button type="button" class="btn btn-outline-info w-100">Забронировать зал</button>
+        </div>
+        <div class="col-6 mt-3">
+                <div class="btn-group w-100" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        среда 20.04(сегодня)
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <h6 class="dropdown-header">Выбрать день</h6>
+                        <a class="dropdown-item active" href="#">среда 20.04(сегодня)</a>
+                        <a class="dropdown-item" href="#">четверг 21.04(завтра)</a>
+                        <a class="dropdown-item" href="#">пятница 22.04</a>
+                        <a class="dropdown-item" href="#">суббота 23.04</a>
+                        <a class="dropdown-item" href="#">воскресенье 24.04</a>
+                        <a class="dropdown-item" href="#">понедельник 25.04</a>
+                        <a class="dropdown-item" href="#">вторник 26.04</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

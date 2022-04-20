@@ -1,17 +1,10 @@
+{% extends "base.html" %}
+
 {% block content %}
 <div class="container-fluid w-50 p-3 mt-4" style="background-color: #00B8C3; color: #272524;">
-    <h1>Бронирование стола</h1>
+    <h1>Бронирование</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-            Название стола<br>
-            {{ form.name_table(class="form-control") }}<br>
-            {% for error in form.name_table.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
         <p>
             Фамилия<br>
             {{ form.surname(class="form-control") }}<br>
@@ -25,14 +18,6 @@
             Номер телефона<br>
             {{ form.number(class="form-control") }}<br>
             {% for error in form.number.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p><p>
-            Дата, которую вы хотите забронировать<br>
-            {{ form.datetime(class="form-control") }}<br>
-            {% for error in form.datetime.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
                 </div>
