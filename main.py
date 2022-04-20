@@ -42,10 +42,12 @@ def login():
 @app.route("/")
 def index():
     db_sess = db_session.create_session()
-    print(db_sess.query(Achievement).all())
+    print(db_sess.query(Games).all())
     #add.add_2()
     if db_sess.query(Achievement).all() == []:
         add.add_1()
+    if db_sess.query(Games).all() == []:
+        add.add()
     users = db_sess.query(User).all()
     names = {name.id: (name.nickname) for name in users}
     return render_template("index.html", names=names, title='Work log')
@@ -106,6 +108,7 @@ def shelf():
 @login_required
 def profile():
     db_sess = db_session.create_session()
+    print(current_user.id)
     user_achievement = db_sess.query(User_Achievement).filter(User_Achievement.user_id == current_user.id).all()
     achievement_id = [i.achiev_id for i in user_achievement]
     achievement = [i.id for i in db_sess.query(Achievement).filter().all()]
