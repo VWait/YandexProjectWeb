@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"/>
+    <title>Шаблон для шапки</title>
+<script type="text/javascript" src="/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=giHPC5YGVcMFj68WWDKuHIFEDPpE93HsuUgx8dREKW_OEjhkeFUOATzyv1tPVmZaJ29SocBLr0hWRLxkTc5PSA3j6gnHEzxdA5KXGqhvEVZHBVkiS1aLBoxCh8tgZLu5PlDd5vqfw6HhFLJQUxmcfw" charset="UTF-8"></script></head>
+<body style="background-color: #272524; color: white;">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light text-black" style="background-color: #00B8C3;">
+        <div class="container-fluid">
+            <div class="navbar-logo">
+                <a href="../templates/base.html" class="navbar-brand" style="font-size: 1.5rem;">
+                    <img src="../static/img/logo.png">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav" style="flex-grow: 0;">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/shelf" class="nav-link active">Полка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/map" class="nav-link active">Карта</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://проигры.рф/" class="nav-link active">Магазин</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ current_user.nickname }}</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Войти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registration">Регистрация</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<main role="main" class="container-fluid">
+
+    <div class="row mt-3">
+        <div class="col-6" style="text-align: center;">
+            <h1>Мягкая зона</h1>
+        </div>
+        <div class="col-6" style="text-align: center;">
+            <h1>Главный зал</h1>
+        </div>
+
+        <div class="col-6">
+            <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #9A1563; color: black;">
+              <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
+
+
+                <!-- Стол -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id1">
+                      Стол
+                    </button>
+                    <div class="modal fade" id="id1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Забронировать стол</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="surname" class="form-label">Фамилия</label>
+                                            <input type="text" class="form-control" id="surname">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phoneNumber" class="form-label">Номер телефона</label>
+                                            <input type="text" class="form-control" id="phoneNumber">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                                    <button type="button" class="btn btn-primary">Забронировать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- PS4 -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id2">
+                      PS4
+                    </button>
+                    <div class="modal fade" id="id2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Забронировать PS4</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="surname" class="form-label">Фамилия</label>
+                                            <input type="text" class="form-control" id="surname">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phoneNumber" class="form-label">Номер телефона</label>
+                                            <input type="text" class="form-control" id="phoneNumber">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                                    <button type="button" class="btn btn-primary">Забронировать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- closed -->
+
+                <div class="col">
+                    <button class="btn btn-dark w-100 h-100" disabled>Забронировано</button>
+                </div>
+
+
+                <!-- Полка -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id3">
+                        Полка
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="id3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Полка</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Хотите посмотреть игры в наличии?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                            <button type="button" class="btn btn-primary">Посмотреть игры</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <!-- Витрина -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id4">
+                        Витрина
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="id4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Витрина</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Хотите перейти в магазин?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                            <button type="button" class="btn btn-primary">Магазин</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <!-- Бар -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id5">
+                        Бар
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="id5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Бар</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>В разработке</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+              </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #FFF100; color: black;">
+              <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+              </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-info w-100 h-100" data-bs-toggle="modal" data-bs-target="#hall">
+                Арендовать зал
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="hall" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="color: black;">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Аренда зала</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <p>Для аренды зала необходимо позвонить в заведение по номеру +79128359025</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <div class="btn-group w-100">
+                <button type="button" class="btn btn-outline-info" disabled>data.now</button>
+                <div class="dropdown">
+                  <a class="btn btn-outline-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    Выбрать день
+                  </a>
+
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Сегодня</a></li>
+                    <li><a class="dropdown-item" href="#">Завтра</a></li>
+                    <li><a class="dropdown-item" href="#">А дальше всё..</a></li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+
+</main>
+
+
+<footer>
+</footer>
+</body>
+</html>

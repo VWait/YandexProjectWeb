@@ -15,11 +15,7 @@
               <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
                   {% for i in items[0] %}
                     <div class="col">
-                        {% if i.closed == None %}
-                            <button class="btn btn-outline-dark w-100 h-200">{{types[i.item_id]}}</button>
-                        {% else %}
-                            <button class="btn btn-outline-dark w-100 h-100">Забронировано</button>
-                        {% endif %}
+                        <button class="btn btn-outline-dark w-100 h-200">{{ i }}</button>
                     </div>
                   {% endfor %}
               </div>
@@ -30,11 +26,7 @@
               <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
                 {% for i in items[1] %}
                     <div class="col">
-                        {% if i.closed == None %}
-                            <button class="btn btn-outline-dark w-100 h-200">{{types[i.item_id]}}</button>
-                        {% else %}
-                            <button class="btn btn-outline-dark w-100 h-100">Забронировано</button>
-                        {% endif %}
+                        <button class="btn btn-outline-dark w-100 h-200">{{ i }}</button>
                     </div>
                   {% endfor %}
               </div>
