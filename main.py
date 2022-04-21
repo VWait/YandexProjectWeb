@@ -72,12 +72,10 @@ def logout():
 @app.route('/registration', methods=['GET', 'POST'])
 def reqister():
     form = RegisterForm()
-    print(22222)
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
             return render_template('register.html', title='Register', form=form,
                                    message="Пароли не совпадают")
-        db_sess = db_session.create_session()
         if db_sess.query(User).filter((User.email == form.email.data) | (User.nickname == form.nickname.data)).first():
             return render_template('register.html', title='Register', form=form,
                                    message="Этот пользователь уже зарегистрирован")
@@ -94,10 +92,17 @@ def reqister():
 
 @app.route('/booking', methods=['GET', 'POST'])
 def booking():
+    db_sess = db_session.create_session()
     form = BookingForm()
     if form.validate_on_submit():
         if len(str(form.number.data)) != 11:
             return render_template('booking.html', message="Неправильно набран номер", form=form)
+        table = Table(
+            surname=form.surname.data,
+            number=form.number.data
+        )
+        db_sess.add(table)
+        db_sess.commit()
         return redirect("/")
     return render_template('booking.html', form=form)
 
@@ -122,7 +127,7 @@ def shelf():
     return render_template("shelf.html", games=games, title='Shelf')
 
 
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/profile',)
 @login_required
 def profile():
     db_sess = db_session.create_session()
@@ -139,24 +144,25 @@ def edit_profile():
     db_sess = db_session.create_session()
     form = EditForm()
     form.nickname.data = current_user.nickname
+    form.email.data = current_user.email
     if form.validate_on_submit():
         print(11111111111111111111)
-        if form.new_password.data != form.new_password_again.data:
-            return render_template('edit_profile.html', title='Edition', form=form,
-                                   message="Новые пароли не совпадают")
-        if form.password.data != current_user.password:
-            return render_template('edit_profile.html', title='Edition ', form=form,
-                                    message="Неправильный пароль")
         user = User(
             nickname=form.nickname.data,
-            email=form.email.data,
-            password=form.password.data,
-            )
-        user.set_password(form.password.data)
+            email=form.email.data
+        )
+        if form.new_password.data != '' and form.new_password_again.data != '':
+            if form.new_password.data != form.new_password_again.data:
+                return render_template('edit_profile.html', title='Edition', form=form,
+                                       message="Новые пароли не совпадают")
+            if form.password.data != current_user.password:
+                return render_template('edit_profile.html', title='Edition ', form=form,
+                                        message="Неправильный пароль")
+            user.set_password(form.password.data)
         db_sess.merge(user)
         db_sess.commit()
         return redirect('/profile')
-    return render_template("edit_profile.html", form=form, user=current_user, title='Edit_profile')
+    return render_template("edit_profile.html", message="Неправильный пароль1", form=form, user=current_user, title='Edit_profile')
 
 
 def cuckoo():
@@ -165,24 +171,25 @@ def cuckoo():
            4: 'Пятница', 5: 'Суббота', 6: 'Воскресенье', 7: 'Понедельник',
            8: 'Вторник', 9: 'Среда', 10: 'Четверг', 11: 'Пятница',
            12: 'Суббота', 13: 'Воскресенье'}
+    today = {'Понедельник': '', 'Вторник': '', 'Среда': '', 'Четверг': '',
+             'Пятница': '', 'Суббота': '', 'Воскресенье': ''}
     dt = datetime.datetime.now()
     day_now = datetime.datetime.timetuple(dt)
-    days = [(day[day_now[6]] + ' ' + str(day_now[2]) + '.' + str(day_now[1]) + ' (сегодня)'),
-            (day[day_now[6] + 1] + ' ' + str(day_now[2] + 1) + '.' + str(day_now[1]) + ' (завтра)'),
-            (day[day_now[6] + 2] + ' ' + str(day_now[2] + 2) + '.' + str(day_now[1])),
-            (day[day_now[6] + 3] + ' ' + str(day_now[2] + 3) + '.' + str(day_now[1])),
-            (day[day_now[6] + 4] + ' ' + str(day_now[2] + 4) + '.' + str(day_now[1])),
-            (day[day_now[6] + 5] + ' ' + str(day_now[2] + 5) + '.' + str(day_now[1])),
-            (day[day_now[6] + 6] + ' ' + str(day_now[2] + 6) + '.' + str(day_now[1]))
-            ]
+    today[day[day_now[6]]] = day[day_now[6]] + ' ' + str(day_now[2]) + '.' + str(day_now[1]) + ' (сегодня)'
+    today[day[day_now[6] + 1]] = day[day_now[6] + 1] + ' ' + str(day_now[2] + 1) + '.' + str(day_now[1]) + ' (завтра)'
+    today[day[day_now[6] + 2]] = day[day_now[6] + 2] + ' ' + str(day_now[2] + 2) + '.' + str(day_now[1])
+    today[day[day_now[6] + 3]] = day[day_now[6] + 3] + ' ' + str(day_now[2] + 3) + '.' + str(day_now[1])
+    today[day[day_now[6] + 4]] = day[day_now[6] + 4] + ' ' + str(day_now[2] + 4) + '.' + str(day_now[1])
+    today[day[day_now[6] + 5]] = day[day_now[6] + 5] + ' ' + str(day_now[2] + 5) + '.' + str(day_now[1])
+    today[day[day_now[6] + 6]] = day[day_now[6] + 6] + ' ' + str(day_now[2] + 6) + '.' + str(day_now[1])
+
     for i in db_sess.query(Days).all():
         db_sess.delete(i)
 
-    for i in days:
-        day_week = Days(type=i)
+    for i in today:
+        day_week = Days(type=today[i])
         db_sess.add(day_week)
     db_sess.commit()
-    print(day[day_now[6]], day_now[2], day_now[1])
 
 
 def main():
