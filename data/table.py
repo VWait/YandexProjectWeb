@@ -10,7 +10,7 @@ class Table(SqlAlchemyBase):
                            primary_key=True, autoincrement=True)
     surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     number = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
+    use_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     day_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("days.id"))
     map_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("maps.id"))
 

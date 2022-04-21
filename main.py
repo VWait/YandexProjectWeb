@@ -1,4 +1,6 @@
 import os
+import datetime
+import schedule
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
@@ -56,6 +58,7 @@ def index():
         add.add()
     users = db_sess.query(User).all()
     names = {name.id: (name.nickname) for name in users}
+    cuckoo()
     return render_template("index.html", names=names, title='Work log')
 
 
@@ -137,7 +140,7 @@ def edit_profile():
     form = EditForm()
     form.nickname.data = current_user.nickname
     if form.validate_on_submit():
-        print(11111)
+        print(11111111111111111111)
         if form.new_password.data != form.new_password_again.data:
             return render_template('edit_profile.html', title='Edition', form=form,
                                    message="Новые пароли не совпадают")
@@ -155,6 +158,31 @@ def edit_profile():
         return redirect('/profile')
     return render_template("edit_profile.html", form=form, user=current_user, title='Edit_profile')
 
+
+def cuckoo():
+    db_sess = db_session.create_session()
+    day = {0: 'Понедельник', 1: 'Вторник', 2: 'Среда', 3: 'Четверг',
+           4: 'Пятница', 5: 'Суббота', 6: 'Воскресенье', 7: 'Понедельник',
+           8: 'Вторник', 9: 'Среда', 10: 'Четверг', 11: 'Пятница',
+           12: 'Суббота', 13: 'Воскресенье'}
+    dt = datetime.datetime.now()
+    day_now = datetime.datetime.timetuple(dt)
+    days = [(day[day_now[6]] + ' ' + str(day_now[2]) + '.' + str(day_now[1]) + ' (сегодня)'),
+            (day[day_now[6] + 1] + ' ' + str(day_now[2] + 1) + '.' + str(day_now[1]) + ' (завтра)'),
+            (day[day_now[6] + 2] + ' ' + str(day_now[2] + 2) + '.' + str(day_now[1])),
+            (day[day_now[6] + 3] + ' ' + str(day_now[2] + 3) + '.' + str(day_now[1])),
+            (day[day_now[6] + 4] + ' ' + str(day_now[2] + 4) + '.' + str(day_now[1])),
+            (day[day_now[6] + 5] + ' ' + str(day_now[2] + 5) + '.' + str(day_now[1])),
+            (day[day_now[6] + 6] + ' ' + str(day_now[2] + 6) + '.' + str(day_now[1]))
+            ]
+    for i in db_sess.query(Days).all():
+        db_sess.delete(i)
+
+    for i in days:
+        day_week = Days(type=i)
+        db_sess.add(day_week)
+    db_sess.commit()
+    print(day[day_now[6]], day_now[2], day_now[1])
 
 
 def main():
