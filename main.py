@@ -220,13 +220,10 @@ def cuckoo():
     today[day[day_now[6] + 5]][1] = day[day_now[6] + 5] + ' ' + str(day_now[2] + 5) + '.' + str(day_now[1])
     today[day[day_now[6] + 6]][1] = day[day_now[6] + 6] + ' ' + str(day_now[2] + 6) + '.' + str(day_now[1])
 
-    for i in db_sess.query(Days).all():
-        db_sess.delete(i)
-
     for i in today:
         day_week = Days(id=today[i][0],
                         type=today[i][1])
-        db_sess.add(day_week)
+        db_sess.merge(day_week)
     db_sess.commit()
 
 
