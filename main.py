@@ -36,6 +36,8 @@ def load_user(user_id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return logout()
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -49,17 +51,8 @@ def login():
 
 @app.route("/")
 def index():
-    db_sess = db_session.create_session()
-    print(db_sess.query(Games).all())
-    #add.add_2()
-    if db_sess.query(Achievement).all() == []:
-        add.add_1()
-    if db_sess.query(Games).all() == []:
-        add.add()
-    users = db_sess.query(User).all()
-    names = {name.id: (name.nickname) for name in users}
     cuckoo()
-    return render_template("index.html", names=names, title='Work log')
+    return render_template("index.html", user=current_user.is_authenticated, title='Work log')
 
 
 @app.route('/logout')
@@ -100,7 +93,7 @@ def booking():
             return render_template('booking.html', message="Неправильно набран номер", form=form)
         table = Table(
             surname=form.surname.data,
-            number=form.number.data
+            number=form.phoneNumber.data
         )
         db_sess.add(table)
         db_sess.commit()
@@ -159,7 +152,10 @@ def profile():
         achievement = [i.id for i in db_sess.query(Achievement).filter().all()]
         achievements = [db_sess.query(Achievement).filter(Achievement.id == i).first() for i in achievement if
                         i in achievement_id]
-        return render_template("profile.html", user=current_user, achievements=achievements, title='Profile')
+
+        tables = [[i.map_id, db_sess.query(Days).filter(Days.id == i.day_id).first().type]
+                  for i in db_sess.query(Table).filter(Table.use_id == current_user.id).all()]
+        return render_template("profile.html", tables=tables, user=current_user, achievements=achievements, title='Profile')
     elif request.method == 'POST':
         print(request.files)
         file = request.files['file']
@@ -220,14 +216,12 @@ def cuckoo():
     today[day[day_now[6] + 5]][1] = day[day_now[6] + 5] + ' ' + str(day_now[2] + 5) + '.' + str(day_now[1])
     today[day[day_now[6] + 6]][1] = day[day_now[6] + 6] + ' ' + str(day_now[2] + 6) + '.' + str(day_now[1])
 
-    for i in db_sess.query(Days).all():
-        db_sess.delete(i)
-
     for i in today:
         day_week = Days(id=today[i][0],
                         type=today[i][1])
-        db_sess.add(day_week)
+        db_sess.merge(day_week)
     db_sess.commit()
+    return day, day_now
 
 
 def main():

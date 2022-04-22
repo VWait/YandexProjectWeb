@@ -5,5 +5,5 @@ from wtforms.validators import DataRequired
 
 class BookingForm(FlaskForm):
     surname = StringField('Surname', validators=[DataRequired()])
-    number = IntegerField('Phone number', validators=[DataRequired()])
+    phoneNumber = IntegerField('PhoneNumber', validators=[DataRequired()])
     submit = SubmitField('Забронировать')

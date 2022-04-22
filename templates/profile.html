@@ -10,18 +10,15 @@
                 <h2 class="center">{{ user.nickname }}</h2>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-3" style="height: 150px;">
-                <a href="/edit_profile" class="btn btn-dark">Редактировать профиль</a>
-            </div>
-        </div>
         <div>
             <form class="login_form" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label>Приложите фотографию</label>
-                    <input type="file" class="form-control-file" id="photo" name="file">
+                    <label>Изменить фотографию</label>
+                    <p>
+                        <input type="file" class="form-control-file" id="photo" name="file">
+                    </p>
                 </div>
-                <input type="submit" class="btn btn-primary"</input>
+                <input type="submit" class="btn btn-dark"></input>
             </form>
         </div>
         <div class="row">
@@ -40,6 +37,25 @@
             {% else %}
             <p>Пока у вас нет достижений</p>
             {% endif %}
+        </div>
+        <div class="row">
+            <h2>Ваши забронированные места</h2>
+            {% if tables %}
+            <div class="row">
+                {% for table in tables %}
+                <div class="col">
+                    <p>Вы забронировали стол № {{table[0]}} по дате {{table[1]}}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>Пока вы ничего не бронировали</p>
+            {% endif %}
+        </div>
+        <div class="row mt-3">
+            <div class="col-3" style="height: 150px;">
+                <a href="/login" class="btn btn-dark">Выйти</a>
+            </div>
         </div>
     </div>
 {% endblock %}

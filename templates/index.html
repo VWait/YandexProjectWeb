@@ -2,4 +2,15 @@
 
 {% block content %}
 
+    {% if user == False %}
+        <div class="container mt-5 p-2" style="background-color: #00B8C3; color: black;">
+            <p align="center">
+                <a href="/login" class="btn btn-dark">Войти</a>
+            </p>
+            <p align="center">
+                <a href="/registration" class="btn btn-dark">Зарегистрироваться</a>
+            </p>
+        </div>
+    {% endif %}
+
 {% endblock %}

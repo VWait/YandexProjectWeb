@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-    <div class="row mt-3">
+<div class="row mt-3">
         <div class="col-6" style="text-align: center;">
             <h1>Мягкая зона</h1>
         </div>
@@ -13,46 +12,255 @@
         <div class="col-6">
             <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #9A1563; color: black;">
               <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
-                  {% for i in items[0] %}
-                    <div class="col">
-                        <button class="btn btn-outline-dark w-100 h-200">{{ i }}</button>
+
+
+                <!-- Стол -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id1">
+                      Стол
+                    </button>
+                    <div class="modal fade" id="id1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Забронировать стол</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="surname" class="form-label">Фамилия</label>
+                                            <input type="text" class="form-control" id="surname">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phoneNumber" class="form-label">Номер телефона</label>
+                                            <input type="text" class="form-control" id="phoneNumber">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                                    <button type="button" class="btn btn-primary">Забронировать</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  {% endfor %}
+                </div>
+
+
+                <!-- PS4 -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id2">
+                      PS4
+                    </button>
+                    <div class="modal fade" id="id2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Забронировать PS4</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="surname" class="form-label">Фамилия</label>
+                                            <input type="text" class="form-control" id="surname">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phoneNumber" class="form-label">Номер телефона</label>
+                                            <input type="text" class="form-control" id="phoneNumber">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                                    <button type="button" class="btn btn-primary">Забронировать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- closed -->
+
+                <div class="col">
+                    <button class="btn btn-dark w-100 h-100" disabled>Забронировано</button>
+                </div>
+
+
+                <!-- Полка -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id3">
+                        Полка
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="id3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Полка</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Хотите посмотреть игры в наличии?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                            <button type="button" class="btn btn-primary">Посмотреть игры</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <!-- Витрина -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id4">
+                        Витрина
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="id4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Витрина</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Хотите перейти в магазин?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                            <button type="button" class="btn btn-primary">Магазин</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <!-- Бар -->
+
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id5">
+                        Бар
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="id5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Бар</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>В разработке</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
               </div>
             </div>
         </div>
         <div class="col-6">
             <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #FFF100; color: black;">
               <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
-                {% for i in items[1] %}
-                    <div class="col">
-                        <button class="btn btn-outline-dark w-100 h-200">{{ i }}</button>
-                    </div>
-                  {% endfor %}
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                <div class="col"><div class="p-3 border-dark">.</div></div>
               </div>
             </div>
         </div>
         <div class="col-6 mt-3">
-            <button type="button" class="btn btn-outline-info w-100">Забронировать зал</button>
-        </div>
-        <div class="col-6 mt-3">
-                <div class="btn-group w-100" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        среда 20.04(сегодня)
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <h6 class="dropdown-header">Выбрать день</h6>
-                        <a class="dropdown-item active" href="#">среда 20.04(сегодня)</a>
-                        <a class="dropdown-item" href="#">четверг 21.04(завтра)</a>
-                        <a class="dropdown-item" href="#">пятница 22.04</a>
-                        <a class="dropdown-item" href="#">суббота 23.04</a>
-                        <a class="dropdown-item" href="#">воскресенье 24.04</a>
-                        <a class="dropdown-item" href="#">понедельник 25.04</a>
-                        <a class="dropdown-item" href="#">вторник 26.04</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-info w-100 h-100" data-bs-toggle="modal" data-bs-target="#hall">
+                Арендовать зал
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="hall" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="color: black;">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Аренда зала</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body">
+                    <p>Для аренды зала необходимо позвонить в заведение по номеру +79128359025</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-6 mt-3">
+            <div class="btn-group w-100">
+                <button type="button" class="btn btn-outline-info" disabled>data.now</button>
+                <div class="dropdown">
+                  <a class="btn btn-outline-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    Выбрать день
+                  </a>
+
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Сегодня</a></li>
+                    <li><a class="dropdown-item" href="#">Завтра</a></li>
+                    <li><a class="dropdown-item" href="#">А дальше всё..</a></li>
+                  </ul>
+                </div>
+            </div>
+        </div>
 
 {% endblock %}
