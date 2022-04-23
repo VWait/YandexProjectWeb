@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<div class="row mt-3">
+
+    <div class="row mt-3">
         <div class="col-6" style="text-align: center;">
             <h1>Мягкая зона</h1>
         </div>
@@ -9,100 +11,109 @@
             <h1>Главный зал</h1>
         </div>
 
+        {% for hall in items %}
         <div class="col-6">
             <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #9A1563; color: black;">
               <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
+                {% for item in hall %}
 
-
-                <!-- Стол -->
-
+                {% if item[0] == 'Стол' %}
                 <div class="col">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id1">
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id{{ item[1].map_id }}">
                       Стол
                     </button>
-                    <div class="modal fade" id="id1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Забронировать стол</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="surname" class="form-label">Фамилия</label>
-                                            <input type="text" class="form-control" id="surname">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="phoneNumber" class="form-label">Номер телефона</label>
-                                            <input type="text" class="form-control" id="phoneNumber">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
-                                    <button type="button" class="btn btn-primary">Забронировать</button>
+                    <form>
+                        <div class="modal fade" id="id{{ item[1].map_id }}" tabindex="-1" aria-labelledby="{{ item[1].map_id }}Label" aria-hidden="true" style="color: black;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Забронировать стол</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Фамилия<br>
+                                            {{ item[1].surname(class="form-control") }}<br>
+                                            {% for error in item[1].surname.errors %}
+                                                <div class="alert alert-danger" role="alert">{{ error }}</div>
+                                            {% endfor %}
+                                        </p>
+                                        <p>
+                                            Номер телефона<br>
+                                            {{ item[1].number(class="form-control") }}<br>
+                                            {% for error in item[1].number.errors %}
+                                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" text="111111" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                                        {{ item[1].submit(type="submit", class="btn btn-primary") }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
 
-                <!-- PS4 -->
-
+                {% elif item[0] == 'PS4'%}
                 <div class="col">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id2">
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id{{ item[1].map_id }}">
                       PS4
                     </button>
-                    <div class="modal fade" id="id2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: black;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Забронировать PS4</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="surname" class="form-label">Фамилия</label>
-                                            <input type="text" class="form-control" id="surname">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="phoneNumber" class="form-label">Номер телефона</label>
-                                            <input type="text" class="form-control" id="phoneNumber">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
-                                    <button type="button" class="btn btn-primary">Забронировать</button>
+                    <form>
+                        <div class="modal fade" id="id{{ item[1].map_id }}" tabindex="-1" aria-labelledby="{{ item[1].map_id }}Label" aria-hidden="true" style="color: black;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Забронировать PS4</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Фамилия<br>
+                                            {{ item[1].surname(class="form-control") }}<br>
+                                            {% for error in item[1].surname.errors %}
+                                                <div class="alert alert-danger" role="alert">{{ error }}</div>
+                                            {% endfor %}
+                                        </p>
+                                        <p>
+                                            Номер телефона<br>
+                                            {{ item[1].number(class="form-control") }}<br>
+                                            {% for error in item[1].number.errors %}
+                                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
+                                        {{ item[1].submit(type="submit", class="btn btn-primary") }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
 
-                <!-- closed -->
-
+                {% elif item[0] == 'Забронировано' %}
                 <div class="col">
                     <button class="btn btn-dark w-100 h-100" disabled>Забронировано</button>
                 </div>
 
 
-                <!-- Полка -->
-
+                {% elif item[0] == 'Полка' %}
                 <div class="col">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id3">
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id{{ item[1] }}">
                         Полка
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="id3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal fade" id="id{{ item[1] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="{{ item[1] }}Label" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -114,7 +125,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
-                            <button type="button" class="btn btn-primary">Посмотреть игры</button>
+                            <a class="btn btn-primary" href="/shelf" role="button" aria-expanded="false">Перейти к полке</a>
                           </div>
                         </div>
                       </div>
@@ -122,16 +133,15 @@
                 </div>
 
 
-                <!-- Витрина -->
-
+                {% elif item[0] == 'Витрина' %}
                 <div class="col">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id4">
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id{{ item[1] }}">
                         Витрина
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="id4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal fade" id="id{{ item[1] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="{{ item[1] }}Label" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -143,7 +153,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Вернуться</button>
-                            <button type="button" class="btn btn-primary">Магазин</button>
+                            <a class="btn btn-primary" href="http://проигры.рф/" role="button" aria-expanded="false">Магазин</a>
                           </div>
                         </div>
                       </div>
@@ -151,16 +161,15 @@
                 </div>
 
 
-                <!-- Бар -->
-
+                {% elif item[0] == 'Бар' %}
                 <div class="col">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id5">
+                    <button type="button" class="btn btn-outline-dark w-100 h-100 p-3" data-bs-toggle="modal" data-bs-target="#id{{ item[1] }}">
                         Бар
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="id5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal fade" id="id{{ item[1] }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="{{ item[1] }}Label" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -178,50 +187,15 @@
                     </div>
                 </div>
 
+                {% else %}
+                <div class="col"><div class="p-3 border-dark">.</div></div>
+                {% endif %}
 
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
+                {% endfor %}
               </div>
             </div>
         </div>
-        <div class="col-6">
-            <div class="container-fluid mt-3 pb-3 rounded" style="background-color: #FFF100; color: black;">
-              <div class="row row-cols-4 row-cols-lg-4 g-2 g-lg-3">
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-                <div class="col"><div class="p-3 border-dark">.</div></div>
-              </div>
-            </div>
-        </div>
+        {% endfor %}
         <div class="col-6 mt-3">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-info w-100 h-100" data-bs-toggle="modal" data-bs-target="#hall">
@@ -229,7 +203,7 @@
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="hall" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="color: black;">
+            <div class="modal fade" id="hall" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hallLabel" aria-hidden="true" style="color: black;">
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -248,19 +222,18 @@
         </div>
         <div class="col-6 mt-3">
             <div class="btn-group w-100">
-                <button type="button" class="btn btn-outline-info" disabled>data.now</button>
+                <button type="button" class="btn btn-outline-info" disabled>{{ today }}</button>
                 <div class="dropdown">
-                  <a class="btn btn-outline-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    Выбрать день
-                  </a>
+                    <a class="btn btn-outline-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Выбрать день</a>
 
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Сегодня</a></li>
-                    <li><a class="dropdown-item" href="#">Завтра</a></li>
-                    <li><a class="dropdown-item" href="#">А дальше всё..</a></li>
-                  </ul>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% for day in days %}
+                        <li><a class="dropdown-item" href="/map_1/{{ day }}" {% if day == today%} active {% endif %}>{{ day }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 
 {% endblock %}

@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired
 
 
 class BookingForm(FlaskForm):
+    map = IntegerField("Map_id", validators=[DataRequired()])
     surname = StringField('Surname', validators=[DataRequired()])
-    phoneNumber = IntegerField('PhoneNumber', validators=[DataRequired()])
+    number = IntegerField('PhoneNumber', validators=[DataRequired()])
     submit = SubmitField('Забронировать')

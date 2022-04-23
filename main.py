@@ -1,5 +1,4 @@
 import os
-import sqlite3
 import datetime
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -16,7 +15,6 @@ from data.user_achiev import User_Achievement
 from flask_login import UserMixin
 from forms.login_form import LoginForm
 from forms.register import RegisterForm
-from forms.edit_form import EditForm
 from forms.booking import BookingForm
 
 
@@ -84,23 +82,6 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-@app.route('/booking', methods=['GET', 'POST'])
-def booking():
-    db_sess = db_session.create_session()
-    form = BookingForm()
-    if form.validate_on_submit():
-        if len(str(form.number.data)) != 11:
-            return render_template('booking.html', message="Неправильно набран номер", form=form)
-        table = Table(
-            surname=form.surname.data,
-            number=form.phoneNumber.data
-        )
-        db_sess.add(table)
-        db_sess.commit()
-        return redirect("/")
-    return render_template('booking.html', form=form)
-
-
 @app.route('/map')
 def map():
     day = {0: 'Понедельник', 1: 'Вторник', 2: 'Среда', 3: 'Четверг',
@@ -113,7 +94,7 @@ def map():
 
 
 
-@app.route('/map_1/<today>')
+@app.route('/map_1/<today>/', methods=['GET'])
 def map_1(today):
     db_sess = db_session.create_session()
     items = [db_sess.query(Maps).filter(Maps.hull_number == 1).all(),
@@ -122,15 +103,34 @@ def map_1(today):
     days = [i.type for i in db_sess.query(Days).all()]
     tables = [i.map_id for i in db_sess.query(Table).filter(Table.day_id == days.index(today) + 1).all()]
     types = {}
-    print(tables)
     for i in type_items:
         types[i.id] = i.type
     for i in range(len(items)):
         for j in range(len(items[i])):
             if items[i][j].id in tables:
-                items[i][j] = 'Забронировано'
+                items[i][j] = ['Забронировано', items[i][j].id]
+            elif types[items[i][j].item_id] == 'Стол' or types[items[i][j].item_id] == 'PS4':
+                form = BookingForm()
+                form.map_id = items[i][j].id
+                form.submit.label.text = f'Забронировать стол №{items[i][j].id}'
+                items[i][j] = [types[items[i][j].item_id], form]
             else:
-                items[i][j] = types[items[i][j].item_id]
+                items[i][j] = [types[items[i][j].item_id], items[i][j].id]
+    surname = request.args.get('surname')
+    number = request.args.get('number')
+    submit = request.args.get('submit')
+    if surname:
+        submit = int(submit.split('№')[1])
+        table = Table(
+            surname=surname,
+            number=number,
+            day_id=days.index(today) + 1,
+            use_id=current_user.id,
+            map_id=submit
+        )
+        db_sess.add(table)
+        db_sess.commit()
+        return redirect(url_for('map_1', today=today))
     return render_template("map.html", items=items, days=days, today=today, title='Map')
 
 
@@ -138,7 +138,6 @@ def map_1(today):
 def shelf():
     db_sess = db_session.create_session()
     games = db_sess.query(Games).all()
-    print(games[0].img)
     return render_template("shelf.html", games=games, title='Shelf')
 
 
@@ -157,7 +156,6 @@ def profile():
                   for i in db_sess.query(Table).filter(Table.use_id == current_user.id).all()]
         return render_template("profile.html", tables=tables, user=current_user, achievements=achievements, title='Profile')
     elif request.method == 'POST':
-        print(request.files)
         file = request.files['file']
         if file:
             file.save(os.path.join(os.path.dirname(__file__), 'static/img', file.filename))
@@ -167,35 +165,6 @@ def profile():
             db_sess.merge(user)
             db_sess.commit()
         return redirect(url_for('profile'))
-
-
-@app.route('/edit_profile', methods=['GET', 'POST'])
-@login_required
-def edit_profile():
-    form = EditForm()
-    if request.method == 'GET':
-        form.nickname.data = current_user.nickname
-        form.email.data = current_user.email
-        return render_template("edit_profile.html", form=form, user=current_user, title='Edit_profile')
-    elif request.method == 'POST':
-        return render_template("edit_profile.html", form=form, user=current_user, title='Edit_profile')
-
-
-@app.route('/editing/<nickname>/<email>/<password>', methods=['GET', 'POST'])
-@login_required
-def editing(nickname, email, password):
-    db_sess = db_session.create_session()
-    user = User(
-        id=current_user.id,
-        nickname=nickname,
-        email=email
-        )
-    if current_user.check_password(password):
-        return redirect('/edit_profile')
-    db_sess.merge(user)
-    db_sess.commit()
-    return redirect('/profile')
-
 
 
 def cuckoo():
@@ -208,6 +177,10 @@ def cuckoo():
              'Пятница': [5, ''], 'Суббота': [6, ''], 'Воскресенье': [7, '']}
     dt = datetime.datetime.now()
     day_now = datetime.datetime.timetuple(dt)
+    if day_now[6] == 0:
+        last_day = 7
+    else:
+        last_day = day_now[6]
     today[day[day_now[6]]][1] = day[day_now[6]] + ' ' + str(day_now[2]) + '.' + str(day_now[1]) + ' (сегодня)'
     today[day[day_now[6] + 1]][1] = day[day_now[6] + 1] + ' ' + str(day_now[2] + 1) + '.' + str(day_now[1]) + ' (завтра)'
     today[day[day_now[6] + 2]][1] = day[day_now[6] + 2] + ' ' + str(day_now[2] + 2) + '.' + str(day_now[1])
@@ -215,6 +188,9 @@ def cuckoo():
     today[day[day_now[6] + 4]][1] = day[day_now[6] + 4] + ' ' + str(day_now[2] + 4) + '.' + str(day_now[1])
     today[day[day_now[6] + 5]][1] = day[day_now[6] + 5] + ' ' + str(day_now[2] + 5) + '.' + str(day_now[1])
     today[day[day_now[6] + 6]][1] = day[day_now[6] + 6] + ' ' + str(day_now[2] + 6) + '.' + str(day_now[1])
+
+    for table in db_sess.query(Table).filter(Table.day_id == last_day).all():
+        db_sess.delete(table)
 
     for i in today:
         day_week = Days(id=today[i][0],
