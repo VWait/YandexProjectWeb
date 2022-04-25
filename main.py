@@ -84,14 +84,15 @@ def reqister():
 
 @app.route('/map')
 def map():
-    day = {0: 'Понедельник', 1: 'Вторник', 2: 'Среда', 3: 'Четверг',
-           4: 'Пятница', 5: 'Суббота', 6: 'Воскресенье', 7: 'Понедельник',
-           8: 'Вторник', 9: 'Среда', 10: 'Четверг', 11: 'Пятница',
-           12: 'Суббота', 13: 'Воскресенье'}
-    day_now = datetime.datetime.timetuple(datetime.datetime.now())
-    today = day[day_now[6]] + ' ' + str(day_now[2]) + '.' + str(day_now[1]) + ' (сегодня)'
-    return redirect(url_for('map_1', today=today))
-
+    if current_user.is_authenticated:
+        day = {0: 'Понедельник', 1: 'Вторник', 2: 'Среда', 3: 'Четверг',
+               4: 'Пятница', 5: 'Суббота', 6: 'Воскресенье', 7: 'Понедельник',
+               8: 'Вторник', 9: 'Среда', 10: 'Четверг', 11: 'Пятница',
+               12: 'Суббота', 13: 'Воскресенье'}
+        day_now = datetime.datetime.timetuple(datetime.datetime.now())
+        today = day[day_now[6]] + ' ' + str(day_now[2]) + '.' + str(day_now[1]) + ' (сегодня)'
+        return redirect(url_for('map_1', today=today))
+    return render_template("index.html", user=current_user.is_authenticated, title='Work log')
 
 
 @app.route('/map_1/<today>/', methods=['GET'])
